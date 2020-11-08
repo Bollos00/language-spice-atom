@@ -1,0 +1,99 @@
+
+
+name: 'SPICE'
+fileTypes: [
+	'cir'
+	'lib'
+	'sp'
+	'spice'
+]
+firstLineMatch: ''
+
+foldingStartMarker: '(?mi)^(\\.subckt|\\.macro).*'
+foldingStopMarker: '(?mi)^(\\.ends|\\.endm)'
+
+patterns: [
+	{
+		match: '(?m)(?:^\\*|\\$|\\;).*$'
+		name: 'comment.line.spice'
+	}
+	{
+		match: '^(\\A.*)'
+		name: 'markup.bold.title.spice'
+	}
+	{
+		match: '(?mi)\\b(([0-9]+\.[0-9]+|\\.[0-9]+|[0-9]+)(t|g|meg|k|m|mil|u|n|p|f|e[\\+\\-0-9][0-9]+|))\\b'
+		name: 'constant.numeric.spice'
+	}
+
+	{
+		match: '(?mi)(^(?:B|C|D|I|L|R|V)[a-z0-9_]+)(\\s+[a-z0-9_]+\\s+[a-z0-9_]+)'
+		name: 'variable.other.element2.spice'
+		captures:
+			1:
+				name: 'variable.parameter.spice'
+			2:
+				name: 'keyword.other.node.spice'
+	}
+	{
+		match: '(?mi)(^(?:J|Q|U|Z)[a-z0-9_]+)(\\s+[a-z0-9_]+\\s+[a-z0-9_]+\\s+[a-z0-9_]+)'
+		name: 'variable.other.element3.spice'
+		captures:
+			1:
+				name: 'variable.parameter.spice'
+			2:
+				name: 'keyword.other.node.spice'
+	}
+	{
+		match: '(?mi)(^(?:E|F|G|H|M|O|S|T|S|Y)[a-z0-9_]+)(\\s+[a-z0-9_]+\\s+[a-z0-9_]+\\s+[a-z0-9_]+\\s+[a-z0-9_]+)'
+		name: 'variable.other.element4.spice'
+		captures:
+			1:
+				name: 'variable.parameter.spice'
+			2:
+				name: 'keyword.other.node.spice'
+	}
+	{
+		match: '(?mi)(^\\.subckt)(\\s[a-z0-9_]+\\s)(.*$)'
+		name: 'entity.other.subckt.spice'
+		captures:
+			1:
+				name: 'entity.name.section.spice'
+			2:
+				name: 'entity.name.function.spice'
+			3:
+				name: 'keyword.other.node.spice'
+	}
+	{
+		match: '(?mi)(^\\.macro)(\\s[a-z0-9_]+\\s)(.*$)'
+		name: 'entity.other.subckt.spice'
+		captures:
+			1:
+				name: 'entity.name.section.spice'
+			2:
+				name: 'entity.name.function.spice'
+			3:
+				name: 'keyword.other.node.spice'
+	}
+	{
+		match: 
+	}
+	{
+		match: '(?mi)^(?:\\.control|\\.end|\\.endc|\\.endif|\\.ends|\\.macro)'
+	}
+
+
+]
+
+scopeName: 'source.spice'
+
+# repository:
+#   ruleName:
+#     {
+#       name: ''
+#       match: ''
+#       end: ''
+#       endCaptures:
+#         0:
+#           name: ''
+#     }

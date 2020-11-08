@@ -1,0 +1,12 @@
+{
+  "name": "language-spice",
+  "version": "2.1.4",
+  "description": "SPICE language support for Atom Text Editor",
+  "keywords": [],
+  "repository": "https://github.com/timerg/language-spice",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {}
+}
