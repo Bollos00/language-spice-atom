@@ -1,5 +1,3 @@
-
-
 name: 'SPICE'
 scopeName: 'source.spice'
 fileTypes: [
@@ -18,8 +16,9 @@ firstLineMatch: ''
 #		i - Insensitive Case
 #	(?:...) - non-capturing groups
 
-# foldingStartMarker: '(?mi)^(\\.subckt|\\.macro).*'
-# foldingStopMarker: '(?mi)^(\\.ends|\\.endm)'
+# Possible options to test later:
+#		change 'variable.other.node.spice' -> 'markup.underline.spice'
+#		change 'variable.language.spice' -> 'markup.italic.spice'
 
 patterns: [
 	#
@@ -37,15 +36,16 @@ patterns: [
 	# Numbers
 	#
 	{ # Numbers on SPICE
-		match: '(?mi)\\b(([0-9]+\.[0-9]+|\\.[0-9]+|[0-9]+)(t|g|meg|k|m|mil|u|n|p|f|e[\\+\\-0-9][0-9]+|))\\b'
+		match: '(?i)\\b(?:(?:[0-9]+\\.[0-9]+|\\.[0-9]+|[0-9]+)' +
+		       '(?:t|g|meg|k|m|mil|u|n|p|f|e' +
+				 '(?:\\+|\\-|)(?:[0-9]+\\.[0-9]+|\\.[0-9]+|[0-9]+)|))\\b'
 		name: 'constant.numeric.spice'
 	}
 	#
 	# SPICE elements
 	#
 	{ # SPICE elements with two nodes
-		match: '(?mi)(^(?:B|C|D|I|L|R|V)[a-z0-9_]+)(\\s+[a-z0-9_]+\\s+[a-z0-9_]+)'
-		name: 'variable.other.element2.spice'
+		match: '(?mi)(^(?:B|C|D|I|L|R|V)[a-z0-9_]+)([ \\t]+[a-z0-9_]+[ \\t]+[a-z0-9_]+)'
 		captures:
 			1:
 				name: 'variable.language.spice'
@@ -53,8 +53,7 @@ patterns: [
 				name: 'variable.other.node.spice'
 	}
 	{ # SPICE elements with three nodes
-		match: '(?mi)(^(?:J|Q|U|Z)[a-z0-9_]+)(\\s+[a-z0-9_]+\\s+[a-z0-9_]+\\s+[a-z0-9_]+)'
-		name: 'variable.other.element3.spice'
+		match: '(?mi)(^(?:J|Q|U|Z)[a-z0-9_]+)([ \\t]+[a-z0-9_]+[ \\t]+[a-z0-9_]+[ \\t]+[a-z0-9_]+)'
 		captures:
 			1:
 				name: 'variable.language.spice'
@@ -63,8 +62,7 @@ patterns: [
 	}
 	{ # SPICE elements with four nodes
 	  # Note: MOSFETs can have two or three nodes, depending on the model
-		match: '(?mi)(^(?:E|F|G|H|M|O|S|T|S|Y)[a-z0-9_]+)(\\s+[a-z0-9_]+\\s+[a-z0-9_]+\\s+[a-z0-9_]+\\s+[a-z0-9_]+)'
-		name: 'variable.other.element4.spice'
+		match: '(?mi)(^(?:E|F|G|H|M|O|S|T|S|Y)[a-z0-9_]+)([ \\t]+[a-z0-9_]+[ \\t]+[a-z0-9_]+[ \\t]+[a-z0-9_]+[ \\t]+[a-z0-9_]+)'
 		captures:
 			1:
 				name: 'variable.language.spice'
@@ -85,42 +83,40 @@ patterns: [
 	# Dot (.) Commands declaration
 	#
 	{ # Subcircuit
-		match: '(?mi)(^\\.subckt)(\\s[a-z0-9_]+\\s)(.*$)'
-		name: 'entity.other.subckt.spice'
+		match: '(?mi)(^\\.subckt)([ \\t][a-z0-9_]+[ \\t])(.*$)'
 		captures:
 			1:
-				name: 'entity.name.section.spice'
+				name: 'keyword.control.spice'
 			2:
 				name: 'variable.parameter.spice'
 			3:
 				name: 'variable.other.node.spice'
 	}
 	{ # macro
-		match: '(?mi)(^\\.macro)(\\s[a-z0-9_]+\\s)(.*$)'
-		name: 'entity.other.subckt.spice'
+		match: '(?mi)(^\\.macro)([ \\t][a-z0-9_]+[ \\t])(.*$)'
 		captures:
 			1:
-				name: 'entity.name.section.spice'
+				name: 'keyword.control.spice'
 			2:
 				name: 'variable.parameter.spice'
 			3:
 				name: 'variable.other.node.spice'
 	}
 	{ # model
-		match:  '(?mi)^(\\.model)(\\s+[a-z0-9_]+)(\\s+(?:R|C|L|SW|CSW|URC|LTRA|D|NPN|PNP|NJF|PJF|NMOS|PMOS|NMF|PMF|VDMOS))'
+		match:  '(?mi)^(\\.model)([ \\t]+[a-z0-9_]+)([ \\t]+(?:R|C|L|SW|CSW|URC|LTRA|D|NPN|PNP|NJF|PJF|NMOS|PMOS|NMF|PMF|VDMOS))'
 		captures:
 			1:
-				name: 'entity.name.section.spice'
+				name: 'keyword.control.spice'
 			2:
 				name: 'variable.parameter.spice'
 			3:
-				name: 'entity.name.spice'
+				name: 'variable.language.spice'
 	}
 	{ # global
 		match: '(?mi)^(\\.global)((?:[ \\t]+[a-z0-9_]+)+)'
 		captures:
 			1:
-				name: 'entity.name.section.spice'
+				name: 'keyword.control.spice'
 			2:
 				name: 'variable.other.node.spice'
 	}
@@ -128,7 +124,7 @@ patterns: [
 		match: '(?mi)^(\\.include)[ \\t]+(.*)'
 		captures:
 			1:
-				name: 'entity.name.section.spice'
+				name: 'keyword.control.spice'
 			2:
 				name: 'string.unquoted.spice'
 	}
@@ -136,29 +132,45 @@ patterns: [
 		match: '(?mi)^(\\.lib)[ \\t]+(.+)([ \\t]+[a-z0-9_]+)'
 		captures:
 			1:
-				name: 'entity.name.section.spice'
+				name: 'keyword.control.spice'
 			2:
 				name: 'string.unquoted.spice'
 			3:
 				name: 'variable.parameter.spice'
 	}
+	{ # param
+		match: '(?mi)(^\\.param)(?:[ \\t]+)([a-z_][a-z0-9_]*)'
+		captures:
+			1:
+				name: 'keyword.control.spice'
+			2:
+				name: 'variable.parameter.spice'
+	}
+	{ # func
+		match: '(?mi)(^\\.func)(?:[ \\t]+)([a-z_][a-z0-9_]*)'
+		captures:
+			1:
+				name: 'keyword.control.spice'
+			2:
+				name: 'variable.parameter.spice'
+	}
+
 	# TODO: .DC .OP .AC ...
-	# TODO: .PARAM
-	# TODO: .FUNC
 	# TODO: .CSPARAM
 	# TODO: .IF .ELSEIF .ELSE .ENDIF
 	{ # Other dot commands
 		match:
-			'(?mi)^(?:\\.control|\\.cspara|\\.end|\\.endc|\\.endif|\\.endm|\\.ends|\\.four|' +
-			'\\.func|\\.meas|\\.measure|\\.options|\\.param|\\.plot|\\.print|\\.probe|\\.temp|' +
+			'(?mi)^(?:\\.control|\\.csparam|\\.end|\\.endc|\\.endif|\\.endm|\\.ends|\\.four|' +
+			'\\.meas|\\.measure|\\.options|\\.param|\\.plot|\\.print|\\.probe|\\.temp|' +
 			'\\.save|\\.with|\\.op|\\.ac|\\.dc|\\.tran)\\b'
-		name: 'entity.name.section.spice'
+		name: 'keyword.control.spice'
 	}
 	#
 	# Symbolic keywords
 	#
 	{
-		match: '(?mi)(?:\\+|\\-|\\=|\\(|\\)|\\{|\\}|\\,)'
+		match: '(?i)(?:\\+|\\-|\\=|\\(|\\)|\\{|\\}|\\,|\\!|\\*\\*|\\^|\\*|\\/|\\%|\\\\|\\=\\=|' +
+				 '\\!\\=|\\<\\=|\\>\\=|\\<|\\>|\\&\\&|\\|\\||\\?|\\:)'
 		name: 'keyword.operator.spice'
 	}
 	#
@@ -172,8 +184,7 @@ patterns: [
 	# SPICE functions
 	#
 	{ # let
-		# match: '(?mi)^(let)\\s+([a-z0-9_]+)\\s+(\=)\\s+(?:.*)'
-		match: '(?mi)^(let)\\s+([a-z0-9_]+)\\s+(\=)'
+		match: '(?mi)^(let)[ \\t]+([a-z0-9_]+)[ \\t]+(\=)'
 		captures:
 			1:
 				name: 'entity.name.function.spice'
@@ -183,6 +194,42 @@ patterns: [
 				name: 'keyword.operator.spice'
 			# 4:
 			# 	name: ''
+	}
+	{ # v(node)
+		match: '(?i)(v)(\\()(?:[ \\t]*)([a-z0-9_]+)(?:[ \\t]*)(?:[ \\t]*)(\\))'
+		captures:
+			1:
+				name: 'entity.name.function.spice'
+			2:
+				name: 'keyword.operator.spice'
+			3:
+				name: 'variable.other.node.spice'
+			4:
+				name: 'keyword.operator.spice'
+	}
+	{ # v(node, node)
+		match: '(?i)(v)(\\()(?:[ \\t]*)([a-z0-9_]+)(?:[ \\t]*)(\\,)(?:[ \\t]*)([a-z0-9_]+)(?:[ \\t]*)(\\))'
+		captures:
+			1:
+				name: 'entity.name.function.spice'
+			2:
+				name: 'keyword.operator.spice'
+			3:
+				name: 'variable.other.node.spice'
+			4:
+				name: 'keyword.operator.spice'
+			5:
+				name: 'variable.other.node.spice'
+			6:
+				name: 'keyword.operator.spice'
+	}
+	{ # Current of voltage source v****#branch
+		match: '(?i)(v[a-z0-0_]+)(#branch)'
+		captures:
+			1:
+				name: 'variable.language.spice'
+			2:
+				name: 'keyword.operator.spice'
 	}
 	{ # Other SPICE functions
 		match:
@@ -195,7 +242,7 @@ patterns: [
 	# Interactive ngspice Interpreter functions
 	#
 	{
-		
+
 	}
 	#
 	# SPICE strings
