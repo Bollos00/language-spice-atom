@@ -1,0 +1,28 @@
+'.source.spice':
+	capacitor:
+		prefix: 'CXXX'
+		body: 'C${1:XXX} ${2:n+} ${3:n-} ${4:...}\n'
+	diode:
+		prefix: 'DXXX'
+		body: 'D${1:XXX} ${2:n+} ${3:n-} ${4:...}\n'
+	current_source:
+		prefix: 'IXXX'
+		body: 'I${1:XXX} ${2:n+} ${3:n-} ${4:...}\n'
+	inductor:
+		prefix: 'LXXX'
+		body: 'L${1:XXX} ${2:n+} ${3:n-} ${4:...}\n'
+	msofet:
+		prefix: 'MXXX'
+		body: 'M${1:XXX} ${2:ndrain} ${3:ngate} ${4:nsource} ${5:nbase} ${6:name}\n'
+	bjt:
+		prefix: 'QXXX'
+		body: 'Q${1:XXX} ${2:ncollector} ${3:nbase} ${4:nemittor} ${5:name}\n'
+	resistor:
+		prefix: 'RXXX'
+		body: 'R${1:XXX} ${2:n1} ${3:n2} ${4:...}\n'
+	voltage_source:
+		prefix: 'VXXX'
+		body: 'V${1:XXX} ${2:n+} ${3:n-} ${4:...}\n'
+	Subcircuit:
+		prefix: 'XXXX'
+		body: 'X${1:XXX} ${2:nodes} ${3:name}\n'

@@ -263,7 +263,7 @@ patterns: [
 		name: 'entity.name.function.spice'
 	}
 	#
-	# Interactive ngspice Interpreter functions
+	# TODO: Interactive ngspice Interpreter functions
 	#
 	{
 
