@@ -201,7 +201,15 @@ patterns: [
 	# SPICE keywords
 	#
 	{
-		match: '(?i)(?:\\b(?:tran|ac|dc)\\b)'
+		match: '(?i)(?:\\b(?:tran|ac|dc|sp)\\b)'
+		name: 'keyword.control.spice'
+	}
+	{
+		match: '(?i)(?:\\b(?:dec|oct|lin)\\b)'
+		name: 'keyword.control.spice'
+	}
+	{
+		match: '(?i)(?:\\b(?:AVG|MIN|MAX|PP|RMS|MIN_AT|MAX_AT)\\b)'
 		name: 'keyword.control.spice'
 	}
 	#
