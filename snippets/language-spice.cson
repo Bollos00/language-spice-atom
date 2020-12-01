@@ -23,6 +23,15 @@
 	voltage_source:
 		prefix: 'VXXX'
 		body: 'V${1:XXX} ${2:n+} ${3:n-} ${4:...}\n'
-	Subcircuit:
+	subcircuit_call:
 		prefix: 'XXXX'
 		body: 'X${1:XXX} ${2:nodes} ${3:name}\n'
+	model:
+		prefix: 'model'
+		body: '.model ${1:name} ${2:type} (${3:...})\n'
+	subcircuit_definition:
+		prefix: 'subckt'
+		body: '.subckt ${1:name} ${2:n1} ${3:...}\n\n.ends'
+	param:
+		prefix: 'param'
+		body: '.param ${1:ident} = ${2:expression}'
