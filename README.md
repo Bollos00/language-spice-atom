@@ -6,8 +6,8 @@ This package provides syntax highlighting and snippets for [SPICE](https://en.wi
 
 ## Installation
 
-While this package is not available on the [Official Atom packages Repository](https://atom.io/packages) you can install it with the follow command:
+This package can be installed with the follow command:
 
 ```
-apm install Bollos00/language-spice
+apm install language-spice-atom
 ```
