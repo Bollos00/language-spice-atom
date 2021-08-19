@@ -1,9 +1,9 @@
 {
-  "name": "language-spice",
-  "version": "1.0.0",
+  "name": "language-spice-atom",
+  "version": "1.0.1",
   "description": "SPICE language support for Atom Text Editor",
   "keywords": [],
-  "repository": "https://github.com/Bollos00/language-spice",
+  "repository": "https://github.com/Bollos00/language-spice-atom",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
